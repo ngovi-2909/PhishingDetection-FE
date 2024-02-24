@@ -8,31 +8,36 @@ import { Search } from "@mui/icons-material";
 import styled from "styled-components";
 import ImageCard from "./ImageCard";
 import Footer from "./Footer";
+import { predict } from "../utils/ApiFunction";
 
 
 const Homepage = () =>{
     
-    const [urlPhishing, setUrlPhishing] = useState("")
+    const [urlName, setUrlName] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
     const [isLoading, setIsLoading]= useState(false)
     const [successMessage, setSuccessMessage] = useState("")
     const [websiteInfo, setWebsiteInfo] = useState("")
 
     const handleInputChange = (e)=>{
-        setUrlPhishing(e.target.value)
+        setUrlName(e.target.value)
     }
 
 
 
-    const handleFormSubmit =  (event) => {
+    const handleFormSubmit =  async(event) => {
 		event.preventDefault()
 		setIsLoading(true)
-        setWebsiteInfo(urlPhishing)
-        if(urlPhishing){
-
-            setSuccessMessage("This website is legitimate")
+        setWebsiteInfo(urlName)
+        console.log(urlName)
+        try{
+            const success = await predict(urlName)
+            if(success){
+                console.log(success)
+            }
+        }catch(error){
+            console.log(error.message)
         }
-        
 
 		setTimeout(() => setIsLoading(false), 2000)
         
@@ -87,7 +92,7 @@ return (
                         placeholder="Enter URL need to check"
                         variant="outlined"
                         size="large"
-                        value={urlPhishing}
+                        value={urlName}
                         onChange={handleInputChange}
                         InputProps={{
                             endAdornment: (
