@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Spinner from 'react-bootstrap/Spinner';
 import TableInform from "./TableInform";
 import NavBar from "./NavBar";
@@ -8,7 +8,7 @@ import { Search } from "@mui/icons-material";
 import styled from "styled-components";
 import ImageCard from "./ImageCard";
 import Footer from "./Footer";
-
+import {api} from "../api"
 
 const Homepage = () =>{
     
@@ -17,6 +17,7 @@ const Homepage = () =>{
     const [isLoading, setIsLoading]= useState(false)
     const [successMessage, setSuccessMessage] = useState("")
     const [websiteInfo, setWebsiteInfo] = useState("")
+    const [result, setResult] = useState()
 
     const handleInputChange = (e)=>{
         setUrlPhishing(e.target.value)
@@ -26,16 +27,24 @@ const Homepage = () =>{
 
     const handleFormSubmit =  (event) => {
 		event.preventDefault()
+        fetch(`${api.Url}/predict/`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({domain: urlPhishing})
+        }).then((response) => response.json())
+            .then((data)=>{
+            setResult(data.result)
+            setTimeout(() => setIsLoading(false), 3000)
+        })
 		setIsLoading(true)
         setWebsiteInfo(urlPhishing)
-        if(urlPhishing){
-
+        console.log(result === 0)
+        if(result === 0){
             setSuccessMessage("This website is legitimate")
+        }else if(result === 1){
+            setSuccessMessage("This website is phishing")
         }
-        
 
-		setTimeout(() => setIsLoading(false), 2000)
-        
 	}
 
     const iconButtonStyles ={
