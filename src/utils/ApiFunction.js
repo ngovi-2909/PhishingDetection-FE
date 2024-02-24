@@ -4,9 +4,9 @@ export const api = axios.create({
     baseURL : "http://localhost:8000" 
 })
 
-export async function predict(urlName){
+export async function predict(domain){
     try{
-        const response = await api.post("/api/v1/predict/",urlName)
+        const response = await api.post("/api/v1/predict/",domain)
         if(response.status >= 200 && response.status < 300){
             return response.data
         }else{

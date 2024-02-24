@@ -14,13 +14,18 @@ import { predict } from "../utils/ApiFunction";
 const Homepage = () =>{
     
     const [urlName, setUrlName] = useState("")
+    const [domainName, setDomainName] = useState({
+        domain: "",
+    })
     const [errorMessage, setErrorMessage] = useState("")
     const [isLoading, setIsLoading]= useState(false)
     const [successMessage, setSuccessMessage] = useState("")
     const [websiteInfo, setWebsiteInfo] = useState("")
 
     const handleInputChange = (e)=>{
-        setUrlName(e.target.value)
+        const { name, value } = e.target
+		setDomainName({ ...domainName, [name]: value })
+		setErrorMessage("")
     }
 
 
@@ -28,15 +33,15 @@ const Homepage = () =>{
     const handleFormSubmit =  async(event) => {
 		event.preventDefault()
 		setIsLoading(true)
-        setWebsiteInfo(urlName)
+        
         console.log(urlName)
         try{
-            const success = await predict(urlName)
+            const success = await predict(domainName)
             if(success){
                 console.log(success)
             }
         }catch(error){
-            console.log(error.message)
+            console.log(error)
         }
 
 		setTimeout(() => setIsLoading(false), 2000)
@@ -87,12 +92,12 @@ return (
                 <FormControl sx={{ m: 1,width: '75%'}}>
                     <TextField
                         className="inputRounded mt-3"
-                        id="urlPhishing"
-                        name = "urlPhishing"
+                        id="domainName"
+                        name = "domainName"
                         placeholder="Enter URL need to check"
                         variant="outlined"
                         size="large"
-                        value={urlName}
+                        value={domainName.domain}
                         onChange={handleInputChange}
                         InputProps={{
                             endAdornment: (
