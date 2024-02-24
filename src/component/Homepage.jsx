@@ -37,7 +37,7 @@ const Homepage = () =>{
             setTimeout(() => setIsLoading(false), 3000)
         })
 		setIsLoading(true)
-        setWebsiteInfo(urlPhishing)
+        // setWebsiteInfo(urlPhishing)
         console.log(result === 0)
         if(result === 0){
             setSuccessMessage("This website is legitimate")
@@ -115,30 +115,30 @@ return (
                         
                     />
                 </FormControl>
-                {isLoading ? (<div>
-                        <Spinner animation="border" variant="info">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
-                    </div>
-                ):errorMessage ?(
-                    <div className="alert alert-danger fade show">{errorMessage}</div>
-                ):websiteInfo ? (
-                    <TableInform data={websiteInfo} message={successMessage}/>
-                ):(
-                <div></div>
-                )}
             </div>
             </Grid>
-
             <Grid lg={5} sm={6} md={8}
-                item className="px-5 flex justify-center"
-                xs={12}>
-                    <div className="container mt-5">
-                        <ImageCard />
-                    </div>              
+                  item className="px-5 flex justify-center"
+                  xs={12}>
+                <div className="container mt-5">
+                    <ImageCard />
+                </div>
             </Grid>
+            {isLoading ? (<div>
+                    <Spinner animation="border" variant="info">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </div>
+            ):errorMessage ?(
+                <div className="alert alert-danger fade show">{errorMessage}</div>
+            ):websiteInfo ? (
+                <TableInform data={websiteInfo} message={successMessage} result={result}/>
+            ):(
+                <div></div>
+            )}
+
         </Grid>
-        <Footer/>
+        {/*<Footer/>*/}
     </div>
 )
 }
