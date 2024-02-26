@@ -1,17 +1,15 @@
-import React, {useEffect, useState} from "react";
-import Spinner from 'react-bootstrap/Spinner';
+import React, { useState} from "react";
 import TableInform from "./TableInform";
 import NavBar from "./NavBar";
 import "./css/style.css"
-import { Box, FormControl, Grid, IconButton, InputAdornment, TextField } from "@mui/material";
-import { PhishingOutlined, Search } from "@mui/icons-material";
+import { Box, FormControl, Grid, IconButton,TextField } from "@mui/material";
+import { Search } from "@mui/icons-material";
 import styled from "styled-components";
 import ImageCard from "./ImageCard";
-import Footer from "./Footer";
 import {api} from "../api"
 import {PacmanLoader} from "react-spinners";
 import Typography from "@mui/material/Typography";
-import Typewriter from 'typewriter-effect';
+
 
 const Homepage = () =>{
     
@@ -68,6 +66,8 @@ const Homepage = () =>{
     const iconButtonStyles ={
         backgroundColor: "#90EE90",
         marginRight:"1px",
+        marginLeft:"25px",
+        width:"8%",
         '&:hover': {
             background: "#32CD32",
           },
@@ -108,34 +108,18 @@ return (
                     </Box>
 
                     <FormControl sx={{m: 1, width: '70%'}}>
-                        <TextField
-                        className="inputRounded mt-3"
-                        id="urlPhishing"
-                        name = "urlPhishing"
-                        placeholder="Enter URL need to check"
-                        variant="outlined"
-                        size="large"
-                        value={urlPhishing}
-                        onChange={handleInputChange}
-                        InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <IconButton
-                                    style={{
-                                        marginLeft: '-40px',
-                                    }}
-                                    sx={iconButtonStyles}
-                                    edge="end" 
-                                    color="default" 
-                                    size="medium"
-                                    onClick={handleFormSubmit}>
-                                  <Search fontSize="large" />
-                                </IconButton>
-                              </InputAdornment>
-                            ),
-                          }}
                         
-                    />
+                    <div className="input-wrapper">
+                        <input
+                            className="input-outline"
+                            placeholder="Enter your URL to search..."
+                            value={urlPhishing}
+                            onChange={handleInputChange}
+                        />
+                        <IconButton sx={iconButtonStyles} onClick={handleFormSubmit} size="small">
+                            <Search id="search-icon" fontSize="medium"/>
+                        </IconButton>
+                    </div>
                 </FormControl>
 
                 {isLoading ?(<div>
@@ -163,7 +147,7 @@ return (
             {isLoading ? (<div>
                 </div>
             ):websiteInfo ? (
-                <TableInform data={websiteInfo} message={message} result={result} webTraffic={webTraffic} domainAge={domainAge} domainRegLen={domainRegLen} pageRank={pageRank}/>
+                <TableInform  data={websiteInfo} message={message} result={result} webTraffic={webTraffic} domainAge={domainAge} domainRegLen={domainRegLen} pageRank={pageRank}/>
             ):(
                 <div></div>
             )}
