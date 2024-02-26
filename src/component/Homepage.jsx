@@ -4,18 +4,19 @@ import TableInform from "./TableInform";
 import NavBar from "./NavBar";
 import "./css/style.css"
 import { Box, FormControl, Grid, IconButton, InputAdornment, TextField } from "@mui/material";
-import { Search } from "@mui/icons-material";
+import { PhishingOutlined, Search } from "@mui/icons-material";
 import styled from "styled-components";
 import ImageCard from "./ImageCard";
 import Footer from "./Footer";
 import {api} from "../api"
+import DynamicProgressBar from "./Loading";
 
 const Homepage = () =>{
     
     const [urlPhishing, setUrlPhishing] = useState("")
-    const [errorMessage, setErrorMessage] = useState("")
+   
     const [isLoading, setIsLoading]= useState(false)
-    const [successMessage, setSuccessMessage] = useState("")
+    const [message,setMessage] = useState("")
     const [websiteInfo, setWebsiteInfo] = useState("")
     const [result, setResult] = useState()
 
@@ -27,6 +28,7 @@ const Homepage = () =>{
 
     const handleFormSubmit =  (event) => {
 		event.preventDefault()
+
         fetch(`${api.Url}/predict/`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -34,16 +36,17 @@ const Homepage = () =>{
         }).then((response) => response.json())
             .then((data)=>{
             setResult(data.result)
+            if(data.result === 0){
+                setMessage("This website is legitimate")
+            }else if(data.result === 1){
+                setMessage("This website is phishing")
+            }
+            setWebsiteInfo(urlPhishing)
             setTimeout(() => setIsLoading(false), 3000)
         })
 		setIsLoading(true)
-        // setWebsiteInfo(urlPhishing)
-        console.log(result === 0)
-        if(result === 0){
-            setSuccessMessage("This website is legitimate")
-        }else if(result === 1){
-            setSuccessMessage("This website is phishing")
-        }
+
+        
 
 	}
 
@@ -80,7 +83,7 @@ return (
             </Grid>
         </Grid>
         <Grid container spacing={0}>
-            <Grid item xs={12} sm={6} lg={6} md={8}>
+            <Grid item xs={12} sm={6} lg={7} md={8} mt={8}>
                 <div className="container mt-5 d-flex flex-column justify-content-center align-items-center">
             
                 <Box component="section" sx={{ border: 0 }} className="text-center">
@@ -115,24 +118,37 @@ return (
                         
                     />
                 </FormControl>
+
+                {isLoading ?(<div>
+                    <span>Loading...<PhishingOutlined/></span>
+                </div>):websiteInfo?(
+                    <div>
+                        <h3>HostName: <span className="fw-normal">{websiteInfo}</span></h3>
+                    </div>
+                ):(<div></div>)
+            }
             </div>
             </Grid>
             <Grid lg={5} sm={6} md={8}
                   item className="px-5 flex justify-center"
                   xs={12}>
-                <div className="container mt-5">
+                <div className="container">
                     <ImageCard />
                 </div>
             </Grid>
+        </Grid>
+        <Grid 
+            lg={12} sm={12} md={8}
+            item className="px-5 flex justify-center"
+            xs={12}>
+            
             {isLoading ? (<div>
-                    <Spinner animation="border" variant="info">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
+                <Spinner animation="border" variant="info">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
                 </div>
-            ):errorMessage ?(
-                <div className="alert alert-danger fade show">{errorMessage}</div>
             ):websiteInfo ? (
-                <TableInform data={websiteInfo} message={successMessage} result={result}/>
+                <TableInform data={websiteInfo} message={message}  result={result}/>
             ):(
                 <div></div>
             )}
