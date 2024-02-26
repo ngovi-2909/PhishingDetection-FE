@@ -27,7 +27,7 @@ const Progress_bar = ({bgcolor,progress,height}) => {
         color: 'black',
         fontWeight: 900,
         fontSize: 25,
-        marginLeft:25
+        marginLeft:20
       }
        
     return (

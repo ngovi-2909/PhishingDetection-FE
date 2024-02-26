@@ -4,7 +4,7 @@ import {Box, Paper, Stack} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { styled } from '@mui/material/styles';
 import Progress_bar from "./Progress_bar";
-
+import { BarChart } from '@mui/x-charts/BarChart';
 const TableInform = (props) =>{
     const phishingStyle= {
         marginTop: '20px',
@@ -37,8 +37,6 @@ const TableInform = (props) =>{
         backgroundColor:'#F28585'
     }
 
-   
-    
     
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -48,11 +46,13 @@ const TableInform = (props) =>{
         textAlign: 'center',
         color: theme.palette.text.secondary,
       }));
+
+
     return(
-        <Paper elevation={3} sx={{height:'50%'}} lg={12} sm={12} md={8} xs={12} style={props.result === 0 ? themeLegit: themePhishing}>
+        <Paper elevation={3} sx={{height:'50%'}} lg={12} sm={12} md={8} xs={12}>
         <Stack spacing={2}
             component={Paper}
-            sx={{height:100}}
+            sx={{height:200}}
             style={props.result === 0 ? legitStyle: phishingStyle}
         >
             {props.message && (
@@ -62,19 +62,24 @@ const TableInform = (props) =>{
             )}
         </Stack>
         
-        <Box sx={{ width: '100%'}} sm={12} md={8} xs={12} style={props.result === 0 ? themeLegit: themePhishing}>
+        <Box sx={{ width: '100%', height: '200px'}} sm={12} md={8} xs={12}>
             <Stack direction="row"
                 justifyContent="center"
                 alignItems="center"
-                spacing={8} sm={12} md={8} xs={12}>
-                <Item sx={{width:'15%',height:'20%', borderTop: 1, borderColor:'#1E90FF',borderWidth:5}} >
+                spacing={8} sm={12} md={8} xs={12}
+            >
+                <Item sx={{width:'15%',height:'20%', borderTop: 1, borderColor:'#1E90FF',borderWidth:5}}
+                    style={{
+                        borderRadius: '10px',
+                    }}
+                >
                     <Stack direction="column"
                     justifyContent="center"
                     alignItems="center"
                     spacing={1}>
                     <Progress_bar 
                         bgcolor="#F5DEB3"
-                        progress="5"
+                        progress={props.pageRank}
                         height={'5'}
                     />
                     <p class="fs-5 text-primary">Page Rank</p>
@@ -86,7 +91,7 @@ const TableInform = (props) =>{
                     justifyContent="center"
                     alignItems="center"
                     spacing={1}>
-                    <h2 className="fw-bold text-dark">13250</h2>
+                    <h2 className="fw-bold text-dark">{props.webTraffic} visits</h2>
                     <p class="fs-5 text-primary">Web traffic</p>
                     </Stack>
                 </Item>
@@ -95,8 +100,8 @@ const TableInform = (props) =>{
                     justifyContent="center"
                     alignItems="center"
                     spacing={1}>
-                    <h2 className="fw-bold text-dark">3467 days</h2>
-                    <p class="fs-5  text-primary">Domain Age</p>
+                    <h2 className="fw-bold text-dark">{props.domainAge} days</h2>
+                    <p class="fs-5  text-primary">Domain Age by Whois</p>
                     </Stack>
                 </Item>
 
@@ -105,10 +110,12 @@ const TableInform = (props) =>{
                     justifyContent="center"
                     alignItems="center"
                     spacing={1}>
-                    <h2 className="fw-bold text-dark">234 days</h2>
-                    <p class="fs-5 text-primary">Domain Register</p>
+                    <h2 className="fw-bold text-dark">{props.domainRegLen} days</h2>
+                    <p class="fs-5 text-primary">Domain Register by Whois</p>
                     </Stack>
                 </Item>
+
+
             </Stack>
         </Box>
         </Paper>

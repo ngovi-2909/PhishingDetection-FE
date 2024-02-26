@@ -9,7 +9,9 @@ import styled from "styled-components";
 import ImageCard from "./ImageCard";
 import Footer from "./Footer";
 import {api} from "../api"
-import DynamicProgressBar from "./Loading";
+import {PacmanLoader} from "react-spinners";
+import Typography from "@mui/material/Typography";
+import Typewriter from 'typewriter-effect';
 
 const Homepage = () =>{
     
@@ -18,7 +20,12 @@ const Homepage = () =>{
     const [isLoading, setIsLoading]= useState(false)
     const [message,setMessage] = useState("")
     const [websiteInfo, setWebsiteInfo] = useState("")
-    const [result, setResult] = useState()
+    const [result, setResult] = useState(0)
+    const [webTraffic, setWebTraffic] = useState(0)
+    const [domainAge, setDomainAge] = useState(0)
+    const [domainRegLen, setDomainRegLen] = useState(0)
+    const [pageRank, setPageRank] = useState(0)
+    const [error, setError] = useState(false)
 
     const handleInputChange = (e)=>{
         setUrlPhishing(e.target.value)
@@ -29,24 +36,32 @@ const Homepage = () =>{
     const handleFormSubmit =  (event) => {
 		event.preventDefault()
 
-        fetch(`${api.Url}/predict/`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({domain: urlPhishing})
-        }).then((response) => response.json())
-            .then((data)=>{
-            setResult(data.result)
-            if(data.result === 0){
-                setMessage("This website is legitimate")
-            }else if(data.result === 1){
-                setMessage("This website is phishing")
-            }
-            setWebsiteInfo(urlPhishing)
-            setTimeout(() => setIsLoading(false), 3000)
-        })
-		setIsLoading(true)
+        if(urlPhishing !== ""){
 
-        
+            fetch(`${api.Url}/predict/`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({domain: urlPhishing})
+            }).then((response) => response.json())
+                .then((data)=>{
+                    setResult(data.data.result)
+                    if(data.data.result === 0){
+                        setMessage("This website is legitimate")
+                    }else if(data.data.result === 1){
+                        setMessage("This website is phishing")
+                    }
+                    setPageRank(data.data.page_rank)
+                    setDomainAge(data.data.domain_age)
+                    setDomainRegLen(data.data.domain_register_length)
+                    setWebTraffic(data.data.web_traffic)
+                    setWebsiteInfo(urlPhishing)
+                    setTimeout(() => setIsLoading(false), 3000)
+                })
+            setIsLoading(true)
+            setError(false)
+        }else{
+            setError(true)
+        }
 
 	}
 
@@ -78,21 +93,22 @@ return (
         <Grid container spacing={0}>
             <Grid item xs={12} sm={12} lg={12}>
                 <Box component="section" sx={{ p: 2, border:0, backgroundColor:"#f6f6f6" }}>
-                    This website help people check Phishing for <b>FREE</b>.
+                    This website help you to check Phishing for <b>FREE</b>.
                 </Box>
             </Grid>
         </Grid>
         <Grid container spacing={0}>
             <Grid item xs={12} sm={6} lg={7} md={8} mt={8}>
                 <div className="container mt-5 d-flex flex-column justify-content-center align-items-center">
-            
-                <Box component="section" sx={{ border: 0 }} className="text-center">
-                        <h1 className="color-h1">Phishing detection website </h1>
-                        <h3>URL Prediction</h3>
-                </Box>
-                  
-                <FormControl sx={{ m: 1,width: '75%'}}>
-                    <TextField
+
+                    <Box component="section" sx={{border: 0}} className="text-center">
+                        <h1 className="color-h1">Phishing detection for website </h1>
+                        <Typography color={'#8B7E74'}>URL Prediction</Typography>
+
+                    </Box>
+
+                    <FormControl sx={{m: 1, width: '70%'}}>
+                        <TextField
                         className="inputRounded mt-3"
                         id="urlPhishing"
                         name = "urlPhishing"
@@ -104,7 +120,10 @@ return (
                         InputProps={{
                             endAdornment: (
                               <InputAdornment position="end">
-                                <IconButton 
+                                <IconButton
+                                    style={{
+                                        marginLeft: '-40px',
+                                    }}
                                     sx={iconButtonStyles}
                                     edge="end" 
                                     color="default" 
@@ -120,14 +139,13 @@ return (
                 </FormControl>
 
                 {isLoading ?(<div>
-                    <span>Loading...<PhishingOutlined/></span>
-                </div>):websiteInfo?(
-                    <div>
-                        <h3>HostName: <span className="fw-normal">{websiteInfo}</span></h3>
-                    </div>
-                ):(<div></div>)
-            }
-            </div>
+                    <PacmanLoader color="#36d7b7" >
+                        <span className="visually-hidden">Loading...</span>
+                    </PacmanLoader>
+                </div>):(<div></div>)
+                }
+                    {error ? (<span className="text-danger">Please enter url!</span>):(<div></div>)}
+                </div>
             </Grid>
             <Grid lg={5} sm={6} md={8}
                   item className="px-5 flex justify-center"
@@ -143,12 +161,9 @@ return (
             xs={12}>
             
             {isLoading ? (<div>
-                <Spinner animation="border" variant="info">
-                    <span className="visually-hidden">Loading...</span>
-                </Spinner>
                 </div>
             ):websiteInfo ? (
-                <TableInform data={websiteInfo} message={message}  result={result}/>
+                <TableInform data={websiteInfo} message={message} result={result} webTraffic={webTraffic} domainAge={domainAge} domainRegLen={domainRegLen} pageRank={pageRank}/>
             ):(
                 <div></div>
             )}
