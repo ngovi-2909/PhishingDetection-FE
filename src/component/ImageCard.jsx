@@ -7,10 +7,10 @@ const ImageCard = () =>{
 
     return(
         <Paper elevation={0}
-            sx={{height:550}}
+            sx={{height:'75%'}}
         > 
             <CardMedia 
-            sx={{height:550}}
+            sx ={{height:'75%', width:'75%'}}
             component="img"
             image={phishing}/>
         </Paper>

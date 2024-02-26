@@ -1,51 +1,53 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Spinner from 'react-bootstrap/Spinner';
 import TableInform from "./TableInform";
 import NavBar from "./NavBar";
 import "./css/style.css"
 import { Box, FormControl, Grid, IconButton, InputAdornment, TextField } from "@mui/material";
-import { Search } from "@mui/icons-material";
+import { PhishingOutlined, Search } from "@mui/icons-material";
 import styled from "styled-components";
 import ImageCard from "./ImageCard";
 import Footer from "./Footer";
-import { predict } from "../utils/ApiFunction";
-
+import {api} from "../api"
+import DynamicProgressBar from "./Loading";
 
 const Homepage = () =>{
     
-    const [urlName, setUrlName] = useState("")
-    const [domainName, setDomainName] = useState({
-        domain: "",
-    })
-    const [errorMessage, setErrorMessage] = useState("")
+    const [urlPhishing, setUrlPhishing] = useState("")
+   
     const [isLoading, setIsLoading]= useState(false)
-    const [successMessage, setSuccessMessage] = useState("")
+    const [message,setMessage] = useState("")
     const [websiteInfo, setWebsiteInfo] = useState("")
+    const [result, setResult] = useState()
 
     const handleInputChange = (e)=>{
-        const { name, value } = e.target
-		setDomainName({ ...domainName, [name]: value })
-		setErrorMessage("")
+        setUrlPhishing(e.target.value)
     }
 
 
 
-    const handleFormSubmit =  async(event) => {
+    const handleFormSubmit =  (event) => {
 		event.preventDefault()
-		setIsLoading(true)
-        
-        console.log(urlName)
-        try{
-            const success = await predict(domainName)
-            if(success){
-                console.log(success)
-            }
-        }catch(error){
-            console.log(error)
-        }
 
-		setTimeout(() => setIsLoading(false), 2000)
+        fetch(`${api.Url}/predict/`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({domain: urlPhishing})
+        }).then((response) => response.json())
+            .then((data)=>{
+            setResult(data.result)
+            if(data.result === 0){
+                setMessage("This website is legitimate")
+            }else if(data.result === 1){
+                setMessage("This website is phishing")
+            }
+            setWebsiteInfo(urlPhishing)
+            setTimeout(() => setIsLoading(false), 3000)
+        })
+		setIsLoading(true)
+
         
+
 	}
 
     const iconButtonStyles ={
@@ -81,7 +83,7 @@ return (
             </Grid>
         </Grid>
         <Grid container spacing={0}>
-            <Grid item xs={12} sm={6} lg={6} md={8}>
+            <Grid item xs={12} sm={6} lg={7} md={8} mt={8}>
                 <div className="container mt-5 d-flex flex-column justify-content-center align-items-center">
             
                 <Box component="section" sx={{ border: 0 }} className="text-center">
@@ -92,12 +94,12 @@ return (
                 <FormControl sx={{ m: 1,width: '75%'}}>
                     <TextField
                         className="inputRounded mt-3"
-                        id="domainName"
-                        name = "domainName"
+                        id="urlPhishing"
+                        name = "urlPhishing"
                         placeholder="Enter URL need to check"
                         variant="outlined"
                         size="large"
-                        value={domainName.domain}
+                        value={urlPhishing}
                         onChange={handleInputChange}
                         InputProps={{
                             endAdornment: (
@@ -116,30 +118,43 @@ return (
                         
                     />
                 </FormControl>
-                {isLoading ? (<div>
-                        <Spinner animation="border" variant="info">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
+
+                {isLoading ?(<div>
+                    <span>Loading...<PhishingOutlined/></span>
+                </div>):websiteInfo?(
+                    <div>
+                        <h3>HostName: <span className="fw-normal">{websiteInfo}</span></h3>
                     </div>
-                ):errorMessage ?(
-                    <div className="alert alert-danger fade show">{errorMessage}</div>
-                ):websiteInfo ? (
-                    <TableInform data={websiteInfo} message={successMessage}/>
-                ):(
-                <div></div>
-                )}
+                ):(<div></div>)
+            }
             </div>
             </Grid>
-
             <Grid lg={5} sm={6} md={8}
-                item className="px-5 flex justify-center"
-                xs={12}>
-                    <div className="container mt-5">
-                        <ImageCard />
-                    </div>              
+                  item className="px-5 flex justify-center"
+                  xs={12}>
+                <div className="container">
+                    <ImageCard />
+                </div>
             </Grid>
         </Grid>
-        <Footer/>
+        <Grid 
+            lg={12} sm={12} md={8}
+            item className="px-5 flex justify-center"
+            xs={12}>
+            
+            {isLoading ? (<div>
+                <Spinner animation="border" variant="info">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+                </div>
+            ):websiteInfo ? (
+                <TableInform data={websiteInfo} message={message}  result={result}/>
+            ):(
+                <div></div>
+            )}
+
+        </Grid>
+        {/*<Footer/>*/}
     </div>
 )
 }
