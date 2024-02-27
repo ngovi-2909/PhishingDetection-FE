@@ -10,10 +10,11 @@ const Progress_bar = ({bgcolor,progress,height}) => {
     }
     const Parentdiv = {
         height: height,
-        width: 100,
+        width: 150,
         backgroundColor: '#666666',
         borderRadius: 40,
-        boxShadow:'0 1px 2px 2px #fff'
+        boxShadow:'0 2px 3px 3px rgba(255, 253, 243, 0.4), 4px 6px 6px rgba(240, 46, 170, 0.3),4px 12px 12px rgba(240, 46, 170, 0.3)',
+        marginTop:8
       }
      
       const Childdiv = {
@@ -21,14 +22,14 @@ const Progress_bar = ({bgcolor,progress,height}) => {
         width: `${total}%`,
         backgroundColor: bgcolor,
         borderRadius: 40,
-        textAlign: 'center'
+        textAlign: 'center',
       }
      
       const progresstext = {
         padding: 10,
         color: 'black',
-        fontWeight: 500,
-        fontSize: 14,
+        fontWeight: 800,
+        fontSize: 16,
         
       }
        

@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import TableInform from "./TableInform";
 import NavBar from "./NavBar";
 import "./css/style.css"
-import { Box, FormControl, Grid, IconButton,TextField } from "@mui/material";
+import { Box,Stack,FormControl, Grid, IconButton,TextField, Paper } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import styled from "styled-components";
 import ImageCard from "./ImageCard";
@@ -24,6 +24,32 @@ const Homepage = () =>{
     const [domainRegLen, setDomainRegLen] = useState(0)
     const [pageRank, setPageRank] = useState(0)
     const [error, setError] = useState(false)
+
+
+    const phishingStyle= {
+        marginTop: '20px',
+        width: '100%',
+        height: '50px',
+        background: '#F28585',
+        marginRight: '10px',
+        marginLeft: '10px',
+        marginBottom: '10px',
+        borderRadius:'10px',
+        display:'inline-block',
+    }
+    const legitStyle= {
+        marginTop: '20px',
+        width: '100%',
+        height: '50px',
+        background: '#BFD8AF',
+        marginRight: '10px',
+        marginLeft: '10px',
+        marginBottom: '10px',
+        borderRadius:'10px',
+        display:'inline-block',
+        alignItems:"center",
+        
+    }
 
     const handleInputChange = (e)=>{
         setUrlPhishing(e.target.value)
@@ -126,7 +152,26 @@ return (
                     <PacmanLoader color="#36d7b7" >
                         <span className="visually-hidden">Loading...</span>
                     </PacmanLoader>
-                </div>):(<div></div>)
+                </div>):websiteInfo ?(
+                    <Grid lg={12} sm={12} md={8}
+                    item className="px-5"
+                    xs={12}>
+                        <Stack spacing={2}
+                        className="result-layout"
+                        component={Paper}
+                        sx={{height:200
+                        }}
+            
+                        style={result === 0 ? legitStyle: phishingStyle}
+                        >
+                        {message && (
+                        // <div className="alert alert-success fade show text-center text-success">
+                            <h3 className="mt-2 font-monospace fs-2 fw-bold">{message}</h3>
+                        // </div>
+                        )}
+                        </Stack>
+                    </Grid>
+                ):(<div></div>)
                 }
                     {error ? (<span className="text-danger">Please enter url!</span>):(<div></div>)}
                 </div>
