@@ -1,20 +1,18 @@
 import { Image } from "@mui/icons-material";
-import { CardMedia, Paper } from "@mui/material";
+import {CardMedia, Paper, Stack} from "@mui/material";
 import React from "react";
-import phishing from "../asset/image/phishing.jpg";
 
 const ImageCard = () =>{
 
     return(
-        <Paper elevation={0}
-            sx={{height:'75%'}}
+        <Stack
+            sx={{height:'80%'}}
         > 
             <CardMedia 
-            sx ={{height:'70%', width:'70%'}}
+            sx ={{height:'100%', width:'100%', mt: 5, mr: 5, borderRadius: '10px'}}
             component="img"
-            image={phishing}
             className="card-image"/>
-        </Paper>
+        </Stack>
     )
 }
 

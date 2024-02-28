@@ -37,11 +37,11 @@ const NavBar = () => {
   };
 
   return (
-    <AppBar position="static" style={{ background: '#2E3B55' }}>
-      <Container maxWidth="xl">
+      <AppBar position="fixed" style={{ background: 'rgb(17 76 175)', boxShadow: 'none', marginTop: '10px' }}>
+      <Container maxWidth="xl" >
         <Toolbar disableGutters>
             <PhishingOutlinedIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-            <Wave text="PHISHING WEBSITE" effect="fadeOut" effectChange={1.0} />
+            <Wave text="PHISHING DETECTION" effect="fadeOut" effectChange={1.0}/>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -94,7 +94,7 @@ const NavBar = () => {
 
         </Toolbar>
       </Container>
-    </AppBar>
+      </AppBar>
   );
 }
 
