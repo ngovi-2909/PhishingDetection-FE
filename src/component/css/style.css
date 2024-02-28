@@ -102,3 +102,24 @@
 	min-height: 200px;
 	box-shadow: 0 2px 5px 5px #fff;
 }
+
+.result-layout{
+	animation: mymove 5s infinite;
+}
+@keyframes mymove {
+	50% {box-shadow: 10px 20px 25px rgba(16,186,72,0.4);}
+}
+
+.card-inform{
+	animation: myanimation 5s infinite;
+}
+@keyframes myanimation {
+	50% {box-shadow: 4px 6px 6px rgba(255,228,225, 0.4), 6px 10px 10px rgba(230,230,250, 0.3),8px 12px 12px rgba(0,0,255, 0.3);}
+}
+
+.card-image{
+	animation: myimage 4s infinite;
+}
+@keyframes myimage {
+	50% {box-shadow: 4px 6px 6px rgba(255,228,225, 0.4), 8px 12px 12px rgba(230,230,250, 0.3),16px 24px 24px rgba(0,0,255, 0.3);}
+}

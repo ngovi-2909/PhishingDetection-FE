@@ -10,9 +10,10 @@ const ImageCard = () =>{
             sx={{height:'75%'}}
         > 
             <CardMedia 
-            sx ={{height:'75%', width:'75%'}}
+            sx ={{height:'70%', width:'70%'}}
             component="img"
-            image={phishing}/>
+            image={phishing}
+            className="card-image"/>
         </Paper>
     )
 }

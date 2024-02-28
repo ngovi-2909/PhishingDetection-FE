@@ -3,39 +3,15 @@ import {Box, Paper, Stack} from "@mui/material";
 import { styled } from '@mui/material/styles';
 import Progress_bar from "./Progress_bar";
 import { AdsClickOutlined,EditCalendarOutlined,GradeOutlined, SpeedOutlined, VpnKeyOutlined } from "@mui/icons-material";
+import ChangeNumbertoString from "./ChangeNumber";
 const TableInform = (props) =>{
-    const phishingStyle= {
-        marginTop: '20px',
-        width: '50%',
-        height: '50px',
-        background: '#F28585',
-        marginRight: '10px',
-        marginLeft: '10px',
-        marginBottom: '10px',
-        borderRadius:'10px',
-        display:'inline-block',
-    }
-    const legitStyle= {
-        marginTop: '20px',
-        width: '50%',
-        height: '50px',
-        background: '#BFD8AF',
-        marginRight: '10px',
-        marginLeft: '10px',
-        marginBottom: '10px',
-        borderRadius:'10px',
-        display:'inline-block',
-        alignItems:"center",
-        
-    }
+    
     const themeLegit = {
         backgroundColor: '#BFD8AF',
     }
     const themePhishing = {
         backgroundColor:'#F28585'
     }
-
-    
 
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -47,31 +23,24 @@ const TableInform = (props) =>{
 
 
     return(
-        <Paper className="mt-2" elevation={3} sx={{height:'50%',boxShadow:'0 2px 3px 3px #B9D3EE',background:'#FFEFD5',':hover': {
-            boxShadow: 20, }}} lg={12} sm={12} md={8} xs={12}>
-        <Stack spacing={2}
-            component={Paper}
-            sx={{height:200}}
-            style={props.result === 0 ? legitStyle: phishingStyle}
-        >
-            {props.message && (
-                // <div className="alert alert-success fade show text-center text-success">
-                    <h3 className="mt-2">{props.message}</h3>
-                // </div>
-            )}
-        </Stack>
+        <Paper className="mt-3" elevation={0} lg={12} sm={12} md={8} xs={12} >
+        <Stack spacing={0}></Stack>
         
-        <Box sx={{ width: '100%', height: '200px', marginTop:2}} sm={12} md={8} xs={12}>
+        <Box sx={{ width: '100%', height: '200px', marginTop:5}} sm={12} md={8} xs={12}>
             
             <Stack direction="row"
                 justifyContent="center"
                 alignItems="center"
                 spacing={4} sm={12} md={8} xs={12}
+                
             >
                 
-                <Paper sx={{width:'20%',height:130,boxShadow:'0 2px 3px 3px #FF4500',background:'#FF9999',':hover': {
-                    boxShadow: 20, }}}
-                   
+                <Paper sx={{width:'20%',height:130,background:'#FF9999',
+                ':hover': {
+                    boxShadow: '0px 20px 40px rgba(230,26,39,0.4)',
+                    transform: 'scale(1.05,1.05)',
+                }}}
+                   className="card-inform"
                    elevation={3}
                 >
                     
@@ -90,10 +59,12 @@ const TableInform = (props) =>{
                                 height={'5'}  
                                 />
                                 </div>
-                                <div >
-                                    <p className="fs-4 fw-bolder font-monospace me-3 text-light"
+                                <div className="me-2">
+                                    {/* <p className="fs-4 fw-bolder font-monospace me-3 text-light"
                                         style={{textShadow:'2px 4px 4px rgba(46,91,173,0.6)'}}
-                                    >{props.pageRank}</p> 
+                                    >{props.pageRank}</p>  */}
+                                    <ChangeNumbertoString data={props.pageRank} />
+                                    
                                 </div>
             
                             </div>
@@ -107,9 +78,13 @@ const TableInform = (props) =>{
                    
                 </Paper>
                 
-                <Paper sx={{width:'20%',height:130,boxShadow:'0 2px 3px 3px #FF4500',background:'#0099FF',':hover': {
-                    boxShadow: 20, }}}
-                   
+                <Paper sx={{width:'20%',height:130,background:'#0099FF',
+                    ':hover': {
+                        boxShadow: '0px 20px 40px rgba(5,73,245,0.4)',
+                        transform: 'scale(1.05,1.05)',
+                    }
+                }}
+                   className="card-inform"
                    elevation={3}
                 >
                     
@@ -122,10 +97,12 @@ const TableInform = (props) =>{
                             <div className="col d-flex justify-content-between">
                                 <div></div>
                                 <div>
-                                <p className="fs-4 fw-bolder font-monospace ms-3 text-light"
+                                {/* <p className="fs-4 fw-bolder font-monospace ms-3 text-light"
                                         style={{textShadow:'2px 4px 4px rgba(46,91,173,0.6)'}}
-                                    >{props.webTraffic}</p> 
+                                    >{props.webTraffic}</p>  */}
+                                     <ChangeNumbertoString data={props.webTraffic}/>
                                 </div>
+                               
                                 <div >
                                     
                                 </div>
@@ -141,8 +118,13 @@ const TableInform = (props) =>{
                    
                 </Paper>
 
-                <Paper sx={{width:'20%',height:130,boxShadow:'0 2px 3px 3px #FF4500',background:'#00BB00',':hover': {
-                    boxShadow: 20, }}}
+                <Paper sx={{width:'20%',height:130,background:'#00BB00',
+                    ':hover': {
+                        boxShadow: '0px 20px 40px rgba(16,186,72,0.4)',
+                        transform: 'scale(1.05,1.05)',
+                    }
+                }}
+                    className="card-inform"
                     elevation={3}
                 >
                     
@@ -155,9 +137,7 @@ const TableInform = (props) =>{
                             <div className="col d-flex justify-content-between">
                                 <div></div>
                                 <div>
-                                    <p className="fs-4 fw-bold font-monospace me-3 text-light"
-                                        style={{textShadow:'2px 4px 4px rgba(46,91,173,0.6)'}}
-                                    >{props.domainAge}</p> 
+                                    <ChangeNumbertoString data={props.domainAge}  day='days' />
                                 </div>
                                 <div >
                                     
@@ -175,9 +155,13 @@ const TableInform = (props) =>{
                    
                 </Paper>
 
-                <Paper sx={{width:'20%',height:130,boxShadow:'0 2px 3px 3px #FF4500',background:'#B9D3EE',':hover': {
-                    boxShadow: 20, }}}
-                   
+                <Paper sx={{width:'20%',height:130,background:'#B9D3EE',
+                    ':hover': {
+                        boxShadow: '0px 20px 40px rgba(90,120,140,0.4)',
+                        transform: 'scale(1.05,1.05)',
+                    }
+                }}
+                   className="card-inform"
                    elevation={3}
                 >
                     
@@ -190,9 +174,10 @@ const TableInform = (props) =>{
                             <div className="col d-flex justify-content-between">
                                 <div></div>
                                 <div>
-                                <p className="fs-4 fw-bolder font-monospace me-3 text-light"
+                                {/* <p className="fs-4 fw-bolder font-monospace me-3 text-light"
                                         style={{textShadow:'2px 4px 4px rgba(46,91,173,0.6)'}}
-                                    >{props.domainRegLen}</p> 
+                                    >{props.domainRegLen}</p>  */}
+                                    <ChangeNumbertoString data={props.domainRegLen} day='days'/>
                                 </div>
                                 <div ></div>
             
