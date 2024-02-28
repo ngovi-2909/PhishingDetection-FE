@@ -103,22 +103,25 @@ const Homepage = () =>{
         
 return (
     <div className="px-20">
-
+        <NavBar/>
         <Parallax pages={2}
                   style={{
-                      background: '#000', color: 'white',
+                      background: '#000', color: 'white' 
                 }}
+                className="navbar"
         >
-
+            
             <ParallaxLayer
                 offset={0}
                 speed={1}
                 factor={2}
                 style={{
                     marginBottom: '5%',
+                    marginTop:'10%',
+                    
                 }}
             >
-                <NavBar/>
+                
                 <div className="ParallaxVideo">
                     <video autoPlay muted loop>
                         <source
@@ -129,7 +132,7 @@ return (
                 </div>
 
                 <Grid container spacing={0}>
-                    <Grid item xs={12} sm={6} lg={6} md={8} mt={-10}>
+                    <Grid item xs={12} sm={6} lg={6} md={8} mt={-10} style={{marginTop:40}}>
                         <div className="container mt-5 d-flex flex-column justify-content-center align-items-center">
                             <Box component="section" sx={{border: 0, marginBottom: '30px'}} className="text-center">
                                 <h1 className="color-h1">Predict phishing website </h1>
@@ -169,10 +172,11 @@ return (
                             {/*{error ? (<span className="text-danger">Please enter url!</span>):(<div></div>)}*/}
                         </div>
                     </Grid>
-                </Grid>
-
-                <Grid
-                    style={{marginTop: '12%'}}
+                <Grid  lg={12} sm={12} md={8}
+                    item className="px-5 flex justify-center"
+                    xs={12} style={{height:180}}>
+                    <Grid
+                    style={{marginTop: '10%'}}
                     lg={12} sm={12} md={8}
                     item className="px-5 flex justify-center"
                     xs={12}>
@@ -185,8 +189,12 @@ return (
                         )
                     }
 
+                    </Grid>
                 </Grid>
-                <Grid direction="row" style={{marginTop: '30%'}}>
+                <Grid lg={12} sm={12} md={8}
+                    item className="px-5 flex justify-center"
+                    xs={12} style={{marginTop:'6%'}}>
+                <Grid direction="row" >
                     <Grid>
                         <img src={vid3} alt="phishing1"
                             style={{
@@ -219,19 +227,19 @@ return (
                         <h1>Stay cautions on public Wi-Fi</h1>
                     </Grid>
                 </Grid>
+                </Grid>
+            </Grid>
             </ParallaxLayer>
-
 
             <ParallaxLayer
                 offset={1}
                 speed={0.5}
-                style={{
-                    marginTop: '5%'
-                }}
+                style={{marginTop:'10%'}}
             >
                 <div style={{
-                    marginTop: '20%',
-                    marginRight: '50%'
+                    marginTop: '10%',
+                    marginRight: '50%',
+                    height:1800,
                 }}>
                     <h1>
                         <Typewriter options={{
@@ -243,7 +251,7 @@ return (
                         />
                     </h1>
                 </div>
-                <div className="ParallaxVideo">
+                <div className="ParallaxVideo1">
                     <video autoPlay muted loop>
                         <source
                             src={vid2}

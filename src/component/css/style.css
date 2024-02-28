@@ -106,20 +106,36 @@
 	animation: mymove 5s infinite;
 }
 
+
 .ParallaxVideo {
 	height: 300px;
+	margin-top: 20px;
 }
 
 .ParallaxVideo video {
 	object-fit: cover;
 	width: 100vw;
-	height: 100vh;
+	height: 105vh;
+	margin-top:13%;
 	position: fixed;
 	top: 0;
 	left: 0;
 	z-index: -1;
 }
 
+.ParallaxVideo1 {
+	height: 1000px;
+}
+.ParallaxVideo1 video {
+	object-fit: cover;
+	width: 100vw;
+	height: 43vh;
+	position: absolute;
+	margin-top: 5%;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
 
 @keyframes mymove {
 	50% {box-shadow: 10px 20px 25px rgba(16,186,72,0.4);}
@@ -138,3 +154,40 @@
 @keyframes myimage {
 	50% {box-shadow: 4px 6px 6px rgba(255,228,225, 0.4), 8px 12px 12px rgba(230,230,250, 0.3),16px 24px 24px rgba(0,0,255, 0.3);}
 }
+
+.navbar::-webkit-scrollbar{
+	display: none;
+}
+
+header{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	padding: 10px 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 100;
+}
+header span{
+	color: #fff;
+	font-size: 1.2em;
+	font-weight: 800;
+	pointer-events: none;
+}
+.navigation a{
+	text-decoration: none;
+	color: #fff;
+	padding: 6px 15px;
+	border-radius: 20px;
+	margin: 0 10px;
+	font-weight: 600;
+}
+
+.navigation a:hover
+{
+	background: #359381;
+	color: #fff;
+}
+
