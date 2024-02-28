@@ -2,14 +2,16 @@ import React, { useState} from "react";
 import TableInform from "./TableInform";
 import NavBar from "./NavBar";
 import "./css/style.css"
-import { Box,Stack,FormControl, Grid, IconButton,TextField, Paper } from "@mui/material";
+import {Box, Stack, FormControl, Grid, IconButton, TextField, Paper, Alert} from "@mui/material";
 import { Search } from "@mui/icons-material";
 import styled from "styled-components";
-import ImageCard from "./ImageCard";
 import {api} from "../api"
-import {PacmanLoader} from "react-spinners";
-import Typography from "@mui/material/Typography";
-
+import {BeatLoader, PacmanLoader} from "react-spinners";
+import {Parallax, ParallaxLayer} from "@react-spring/parallax";
+import vid1 from "../asset/video/vid1-1.mp4";
+import vid2 from "../asset/video/vid3.mp4";
+import vid3 from "../asset/video/vid4.gif";
+import Typewriter from "typewriter-effect";
 
 const Homepage = () =>{
     
@@ -27,27 +29,10 @@ const Homepage = () =>{
 
 
     const phishingStyle= {
-        marginTop: '20px',
-        width: '100%',
-        height: '50px',
-        background: '#F28585',
-        marginRight: '10px',
-        marginLeft: '10px',
-        marginBottom: '10px',
-        borderRadius:'10px',
-        display:'inline-block',
+        background: "#D35D6E"
     }
     const legitStyle= {
-        marginTop: '20px',
-        width: '100%',
-        height: '50px',
-        background: '#BFD8AF',
-        marginRight: '10px',
-        marginLeft: '10px',
-        marginBottom: '10px',
-        borderRadius:'10px',
-        display:'inline-block',
-        alignItems:"center",
+        background: "#16C79A"
         
     }
 
@@ -70,9 +55,9 @@ const Homepage = () =>{
                 .then((data)=>{
                     setResult(data.data.result)
                     if(data.data.result === 0){
-                        setMessage("This website is legitimate")
+                        setMessage("Legitimate website")
                     }else if(data.data.result === 1){
-                        setMessage("This website is phishing")
+                        setMessage("Phishing website")
                     }
                     setPageRank(data.data.page_rank)
                     setDomainAge(data.data.domain_age)
@@ -85,17 +70,20 @@ const Homepage = () =>{
             setError(false)
         }else{
             setError(true)
+
         }
 
 	}
 
     const iconButtonStyles ={
-        backgroundColor: "#90EE90",
+        backgroundColor: "#83f6cd",
         marginRight:"1px",
         marginLeft:"25px",
-        width:"8%",
+        width:"10%",
+        height: '50px',
         '&:hover': {
-            background: "#32CD32",
+            // background: "#93FFD8",
+            background: "#90f190",
           },
         
     }
@@ -115,90 +103,158 @@ const Homepage = () =>{
         
 return (
     <div className="px-20">
-        <NavBar/>
-        <Grid container spacing={0}>
-            <Grid item xs={12} sm={12} lg={12}>
-                <Box component="section" sx={{ p: 2, border:0, backgroundColor:"#f6f6f6" }}>
-                    This website help you to check Phishing for <b>FREE</b>.
-                </Box>
-            </Grid>
-        </Grid>
-        <Grid container spacing={0}>
-            <Grid item xs={12} sm={6} lg={7} md={8} mt={8}>
-                <div className="container mt-5 d-flex flex-column justify-content-center align-items-center">
 
-                    <Box component="section" sx={{border: 0}} className="text-center">
-                        <h1 className="color-h1">Phishing detection for website </h1>
-                        <Typography color={'#8B7E74'}>URL Prediction</Typography>
+        <Parallax pages={2}
+                  style={{
+                      background: '#000', color: 'white',
+                }}
+        >
 
-                    </Box>
-
-                    <FormControl sx={{m: 1, width: '70%'}}>
-                        
-                    <div className="input-wrapper">
-                        <input
-                            className="input-outline"
-                            placeholder="Enter your URL to search..."
-                            value={urlPhishing}
-                            onChange={handleInputChange}
+            <ParallaxLayer
+                offset={0}
+                speed={1}
+                factor={2}
+                style={{
+                    marginBottom: '5%',
+                }}
+            >
+                <NavBar/>
+                <div className="ParallaxVideo">
+                    <video autoPlay muted loop>
+                        <source
+                            src={vid1}
+                            type="video/mp4"
                         />
-                        <IconButton sx={iconButtonStyles} onClick={handleFormSubmit} size="small">
-                            <Search id="search-icon" fontSize="medium"/>
-                        </IconButton>
-                    </div>
-                </FormControl>
+                    </video>
+                </div>
 
-                {isLoading ?(<div>
-                    <PacmanLoader color="#36d7b7" >
-                        <span className="visually-hidden">Loading...</span>
-                    </PacmanLoader>
-                </div>):websiteInfo ?(
-                    <Grid lg={12} sm={12} md={8}
-                    item className="px-5"
-                    xs={12}>
-                        <Stack spacing={2}
-                        className="result-layout"
-                        component={Paper}
-                        sx={{height:200
-                        }}
-            
-                        style={result === 0 ? legitStyle: phishingStyle}
-                        >
-                        {message && (
-                        // <div className="alert alert-success fade show text-center text-success">
-                            <h3 className="mt-2 font-monospace fs-2 fw-bold">{message}</h3>
-                        // </div>
-                        )}
-                        </Stack>
+                <Grid container spacing={0}>
+                    <Grid item xs={12} sm={6} lg={6} md={8} mt={-10}>
+                        <div className="container mt-5 d-flex flex-column justify-content-center align-items-center">
+                            <Box component="section" sx={{border: 0, marginBottom: '30px'}} className="text-center">
+                                <h1 className="color-h1">Predict phishing website </h1>
+                                {/*<Typography color={'#b1aeac'}>URL Prediction</Typography>*/}
+                            </Box>
+
+                            <FormControl sx={{m: 1, width: '70%', mb: 2}}>
+
+                                <div className="input-wrapper">
+                                    <input
+                                        className="input-outline"
+                                        placeholder="Enter your URL to search..."
+                                        value={urlPhishing}
+                                        onChange={handleInputChange}
+                                    />
+                                    <IconButton sx={iconButtonStyles} onClick={handleFormSubmit} size="small">
+                                        <Search id="search-icon" fontSize="medium"/>
+                                    </IconButton>
+                                </div>
+                            </FormControl>
+
+                            {error ? (<Alert severity="error">Please enter url!</Alert>) : isLoading ? (<div>
+
+                                <BeatLoader color="#ffffff"/>
+                            </div>) : websiteInfo ? (
+                                <div>
+                                    {message && (
+                                        <Alert variant="filled" severity={result === 0 ? "success" : "error"}
+                                               style={result === 0 ? legitStyle : phishingStyle}
+                                        >
+                                            {message}
+                                        </Alert>
+                                    )}
+                                </div>
+                            ) : (<div></div>)
+                            }
+                            {/*{error ? (<span className="text-danger">Please enter url!</span>):(<div></div>)}*/}
+                        </div>
                     </Grid>
-                ):(<div></div>)
-                }
-                    {error ? (<span className="text-danger">Please enter url!</span>):(<div></div>)}
-                </div>
-            </Grid>
-            <Grid lg={5} sm={6} md={8}
-                  item className="px-5 flex justify-center"
-                  xs={12}>
-                <div className="container">
-                    <ImageCard />
-                </div>
-            </Grid>
-        </Grid>
-        <Grid 
-            lg={12} sm={12} md={8}
-            item className="px-5 flex justify-center"
-            xs={12}>
-            
-            {isLoading ? (<div>
-                </div>
-            ):websiteInfo ? (
-                <TableInform  data={websiteInfo} message={message} result={result} webTraffic={webTraffic} domainAge={domainAge} domainRegLen={domainRegLen} pageRank={pageRank}/>
-            ):(
-                <div></div>
-            )}
+                </Grid>
 
-        </Grid>
-        {/*<Footer/>*/}
+                <Grid
+                    style={{marginTop: '12%'}}
+                    lg={12} sm={12} md={8}
+                    item className="px-5 flex justify-center"
+                    xs={12}>
+                    {
+                        error ? (<div></div>) : isLoading ? (<div></div>) : websiteInfo ? (
+                            <TableInform data={websiteInfo} message={message} result={result} webTraffic={webTraffic}
+                                         domainAge={domainAge} domainRegLen={domainRegLen} pageRank={pageRank}/>
+                        ) : (
+                            <div></div>
+                        )
+                    }
+
+                </Grid>
+                <Grid direction="row" style={{marginTop: '30%'}}>
+                    <Grid>
+                        <img src={vid3} alt="phishing1"
+                            style={{
+                                width: '30%',
+                                marginTop: '10%',
+                                marginRight: '50%',
+                            }}
+                        >
+                        </img>
+                    </Grid>
+                    <Grid
+                        style={{
+                            marginLeft: '50%',
+                            marginTop: '-20%',
+                            textAlign: 'left',
+                            marginBottom: 'auto',
+                        }}
+                    >
+                        <h1>
+                            {/*<Typewriter options={{*/}
+                            {/*    delay: 50,*/}
+                            {/*    strings: ["Be careful with personal information", "Be wary of impresonating"],*/}
+                            {/*    loop: true,*/}
+                            {/*    autoStart: true,*/}
+                            {/*}}*/}
+                            Be careful with personal information
+
+                        </h1>
+                        <h1>Be wary of impersonating</h1>
+                        <h1>Stay cautions on public Wi-Fi</h1>
+                    </Grid>
+                </Grid>
+            </ParallaxLayer>
+
+
+            <ParallaxLayer
+                offset={1}
+                speed={0.5}
+                style={{
+                    marginTop: '5%'
+                }}
+            >
+                <div style={{
+                    marginTop: '20%',
+                    marginRight: '50%'
+                }}>
+                    <h1>
+                        <Typewriter options={{
+                            delay: 50,
+                            strings: ["Don't be fooled by phishing scams!"],
+                            loop: true,
+                            autoStart: true,
+                        }}
+                        />
+                    </h1>
+                </div>
+                <div className="ParallaxVideo">
+                    <video autoPlay muted loop>
+                        <source
+                            src={vid2}
+                            type="video/mp4"
+                        />
+                    </video>
+                </div>
+            </ParallaxLayer>
+
+        </Parallax>
+
     </div>
 )
 }

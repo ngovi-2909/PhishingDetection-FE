@@ -24,10 +24,8 @@ const TableInform = (props) =>{
 
     return(
         <Paper className="mt-3" elevation={0} lg={12} sm={12} md={8} xs={12} >
-        <Stack spacing={0}></Stack>
         
-        <Box sx={{ width: '100%', height: '200px', marginTop:5}} sm={12} md={8} xs={12}>
-            
+        <Box sx={{ width: '100%', height: '200px', marginTop:5, background: 'rgb(17 76 175)'}} sm={12} md={8} xs={12}>
             <Stack direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -78,7 +76,7 @@ const TableInform = (props) =>{
                    
                 </Paper>
                 
-                <Paper sx={{width:'20%',height:130,background:'#0099FF',
+                <Paper sx={{width:'20%',height:130,background:'#548CFF',
                     ':hover': {
                         boxShadow: '0px 20px 40px rgba(5,73,245,0.4)',
                         transform: 'scale(1.05,1.05)',
@@ -118,7 +116,7 @@ const TableInform = (props) =>{
                    
                 </Paper>
 
-                <Paper sx={{width:'20%',height:130,background:'#00BB00',
+                <Paper sx={{width:'20%',height:130,background:'#6EBF8B',
                     ':hover': {
                         boxShadow: '0px 20px 40px rgba(16,186,72,0.4)',
                         transform: 'scale(1.05,1.05)',
