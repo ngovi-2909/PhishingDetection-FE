@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import PhishingOutlinedIcon from '@mui/icons-material/PhishingOutlined';
 import {Wave} from "react-animated-text";
+import { Link } from "react-router-dom";
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -37,11 +38,12 @@ const NavBar = () => {
   };
 
   return (
-      <AppBar position="fixed" style={{ background: 'rgb(17 76 175)', boxShadow: 'none', marginTop: '10px' }}>
+    <>
+      {/* <AppBar position="sticky" style={{backgroundColor:'transparent',boxShadow: 'none', marginTop: '10px' }} >
       <Container maxWidth="xl" >
         <Toolbar disableGutters>
             <PhishingOutlinedIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-            <Wave text="PHISHING DETECTION" effect="fadeOut" effectChange={1.0}/>
+            <Wave text="PHISHING DETECTION"  effect="fadeOut" effectChange={1.0}/>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -50,7 +52,7 @@ const NavBar = () => {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color="black"
             >
               <MenuIcon />
             </IconButton>
@@ -85,7 +87,7 @@ const NavBar = () => {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'black', display: 'block' }}
               >
                 {page}
               </Button>
@@ -94,7 +96,22 @@ const NavBar = () => {
 
         </Toolbar>
       </Container>
-      </AppBar>
+      </AppBar> */}
+      <header>
+        
+        <Wave text={"PHISHING DETECTION"} effect="fadeOut" effectChange={1.0}/>
+        
+        <nav className="navigation">
+           
+              <a href="#" className="active">Home</a>
+            
+              <a href="#">About</a>
+            
+              <a href="#">Service</a>
+            
+        </nav>
+      </header>
+      </>
   );
 }
 
