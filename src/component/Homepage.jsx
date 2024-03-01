@@ -8,9 +8,9 @@ import styled from "styled-components";
 import {api} from "../api"
 import {BeatLoader, PacmanLoader} from "react-spinners";
 import {Parallax, ParallaxLayer} from "@react-spring/parallax";
-import vid1 from "../asset/video/vid1-1.mp4";
-import vid2 from "../asset/video/vid3.mp4";
-import vid3 from "../asset/video/vid4.gif";
+import vid1 from "../asset/video/gif1.gif";
+import vid2 from "../asset/video/giphy.gif";
+import vid3 from "../asset/video/gif2.gif";
 import Typewriter from "typewriter-effect";
 
 const Homepage = () =>{
@@ -104,35 +104,27 @@ const Homepage = () =>{
 return (
     <div className="px-20">
         <NavBar/>
-        <Parallax pages={2}
+        <Parallax pages={3}
                   style={{
-                      background: '#000', color: 'white' 
+                      background: '#000', color: 'white' ,
                 }}
-                className="navbar"
         >
-            
             <ParallaxLayer
                 offset={0}
-                speed={1}
+                speed={0.5}
                 factor={2}
                 style={{
                     marginBottom: '5%',
-                    marginTop:'10%',
-                    
                 }}
             >
-                
-                <div className="ParallaxVideo">
-                    <video autoPlay muted loop>
-                        <source
-                            src={vid1}
-                            type="video/mp4"
-                        />
-                    </video>
-                </div>
 
-                <Grid container spacing={0}>
-                    <Grid item xs={12} sm={6} lg={6} md={8} mt={-10} style={{marginTop:40}}>
+            <Grid container direction="row"
+                style={{
+                    background: '#387ADF',
+                }}
+            >
+
+                        <Grid item xs={12} sm={6} lg={6} md={6} mt={30}>
                         <div className="container mt-5 d-flex flex-column justify-content-center align-items-center">
                             <Box component="section" sx={{border: 0, marginBottom: '30px'}} className="text-center">
                                 <h1 className="color-h1">Predict phishing website </h1>
@@ -172,93 +164,103 @@ return (
                             {/*{error ? (<span className="text-danger">Please enter url!</span>):(<div></div>)}*/}
                         </div>
                     </Grid>
-                <Grid  lg={12} sm={12} md={8}
-                    item className="px-5 flex justify-center"
-                    xs={12} style={{height:180}}>
                     <Grid
-                    style={{marginTop: '10%'}}
-                    lg={12} sm={12} md={8}
-                    item className="px-5 flex justify-center"
-                    xs={12}>
-                    {
-                        error ? (<div></div>) : isLoading ? (<div></div>) : websiteInfo ? (
-                            <TableInform data={websiteInfo} message={message} result={result} webTraffic={webTraffic}
-                                         domainAge={domainAge} domainRegLen={domainRegLen} pageRank={pageRank}/>
-                        ) : (
-                            <div></div>
-                        )
-                    }
-
-                    </Grid>
-                </Grid>
-                <Grid lg={12} sm={12} md={8}
-                    item className="px-5 flex justify-center"
-                    xs={12} style={{marginTop:'6%'}}>
-                <Grid direction="row" >
-                    <Grid>
-                        <img src={vid3} alt="phishing1"
-                            style={{
-                                width: '30%',
-                                marginTop: '10%',
-                                marginRight: '50%',
-                            }}
-                        >
-                        </img>
-                    </Grid>
-                    <Grid
-                        style={{
-                            marginLeft: '50%',
-                            marginTop: '-20%',
-                            textAlign: 'left',
-                            marginBottom: 'auto',
-                        }}
+                        display="flex"
+                        justifyContent="center"
+                        justifyItems="center"
+                        xs={12} sm={6} lg={6} md={6} mt={15}
                     >
-                        <h1>
-                            {/*<Typewriter options={{*/}
-                            {/*    delay: 50,*/}
-                            {/*    strings: ["Be careful with personal information", "Be wary of impresonating"],*/}
-                            {/*    loop: true,*/}
-                            {/*    autoStart: true,*/}
-                            {/*}}*/}
-                            Be careful with personal information
-
-                        </h1>
+                        <img src={vid1} style={{width: '50%'}}/>
+                    </Grid>
+                    <Grid  lg={12} sm={12} md={12} xs={12}
+                        item className="flex justify-center" style={{height:300}}>
+                        <Grid
+                        style={{marginTop: '2%'}}
+                        lg={12} sm={12} md={8}
+                        item className="flex justify-center"
+                        xs={12}>
+                        {
+                            error ? (<div></div>) : isLoading ? (<div></div>) : websiteInfo ? (
+                                <TableInform data={websiteInfo} message={message} result={result} webTraffic={webTraffic}
+                                             domainAge={domainAge} domainRegLen={domainRegLen} pageRank={pageRank}/>
+                            ) : (
+                                <div></div>
+                            )
+                        }
+                        </Grid>
+                    </Grid>
+            </Grid>
+                <Grid
+                    style={{
+                        marginTop: '30%',
+                        marginBottom: 'auto',
+                    }}
+                    direction="row"
+                    display="flex"
+                    justifyContent="center"
+                    justifyItems="center"
+                >
+                    <Grid lg={6} md={6} sm={6}  xs={12}>
+                        <img src={vid2} style={{borderRadius: '10px'}}/>
+                    </Grid>
+                    <Grid lg={6} md={6} sm={6} xs={12} ml={20} mt={10}>
+                        <h1>Be careful with personal information</h1>
                         <h1>Be wary of impersonating</h1>
                         <h1>Stay cautions on public Wi-Fi</h1>
                     </Grid>
-                </Grid>
-                </Grid>
-            </Grid>
-            </ParallaxLayer>
 
+                </Grid>
+            </ParallaxLayer>
             <ParallaxLayer
                 offset={1}
                 speed={0.5}
-                style={{marginTop:'10%'}}
+                style={{marginTop:'60%'}}
             >
-                <div style={{
-                    marginTop: '10%',
-                    marginRight: '50%',
-                    height:1800,
-                }}>
-                    <h1>
-                        <Typewriter options={{
-                            delay: 50,
-                            strings: ["Don't be fooled by phishing scams!"],
-                            loop: true,
-                            autoStart: true,
-                        }}
-                        />
-                    </h1>
-                </div>
-                <div className="ParallaxVideo1">
-                    <video autoPlay muted loop>
-                        <source
-                            src={vid2}
-                            type="video/mp4"
-                        />
-                    </video>
-                </div>
+                <Grid
+                    direction="row"
+                    display="flex"
+                    justifyContent="center"
+                    justifyItems="center"
+                    ml={30}
+                >
+                    <Grid lg={6} md={6} sm={6} xs={12} style={{width: '50%'}}>
+                        <h1>
+                            <Typewriter options={{
+                                delay: 50,
+                                strings: ["Don't be fooled by phishing scams!"],
+                                loop: true,
+                                autoStart: true,
+                            }}
+                            />
+                        </h1>
+                    </Grid>
+                    <Grid lg={6} md={6} sm={6}  xs={12} style={{width: '50%'}}>
+                        <img src={vid3} style={{width: '70%', borderRadius: '10px'}}/>
+                    </Grid>
+                </Grid>
+                {/*<div style={{*/}
+                {/*    marginTop: '10%',*/}
+                {/*    marginRight: '50%',*/}
+                {/*    height: 1800,*/}
+                {/*}}>*/}
+                {/*    <h1>*/}
+                {/*        <Typewriter options={{*/}
+                {/*            delay: 50,*/}
+                {/*            strings: ["Don't be fooled by phishing scams!"],*/}
+                {/*            loop: true,*/}
+                {/*            autoStart: true,*/}
+                {/*        }}*/}
+                {/*        />*/}
+                {/*    </h1>*/}
+                {/*</div>*/}
+                {/*<div className="ParallaxVideo1">*/}
+                {/*    <video autoPlay muted loop>*/}
+                {/*        <source*/}
+                {/*            src={vid2}*/}
+                {/*            type="video/mp4"*/}
+                {/*        />*/}
+                {/*    </video>*/}
+                {/*</div>*/}
             </ParallaxLayer>
 
         </Parallax>

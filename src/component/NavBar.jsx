@@ -97,7 +97,7 @@ const NavBar = () => {
         </Toolbar>
       </Container>
       </AppBar> */}
-      <header>
+      <header style={{marginTop: '30px'}}>
         
         <Wave text={"PHISHING DETECTION"} effect="fadeOut" effectChange={1.0}/>
         
