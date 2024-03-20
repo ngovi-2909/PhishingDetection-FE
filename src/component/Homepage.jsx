@@ -68,7 +68,7 @@ const Homepage = () =>{
 		event.preventDefault()
         
         if(urlPhishing !== ""){
-            if(urlPhishing.startsWith("https://")){
+            if(urlPhishing.startsWith("https://") || urlPhishing.startsWith("http://")){
                 callApi(urlPhishing)
                 setIsLoading(true)
                 setError(false)
