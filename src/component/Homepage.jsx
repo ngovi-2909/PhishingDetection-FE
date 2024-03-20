@@ -40,34 +40,46 @@ const Homepage = () =>{
         setUrlPhishing(e.target.value)
     }
 
+    const callApi =(url)=>{
+        console.log(url)
+        fetch(`${api.Url}/predict/`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({domain: url})
+        }).then((response) => response.json())
+            .then((data)=>{
+                setResult(data.data.result)
+                if(data.data.result === 0){
+                    setMessage("Legitimate website")
+                }else if(data.data.result === 1){
+                    setMessage("Phishing website")
+                }
+                setPageRank(data.data.page_rank)
+                setDomainAge(data.data.domain_age)
+                setDomainRegLen(data.data.domain_register_length)
+                setWebTraffic(data.data.web_traffic)
+                setWebsiteInfo(url)
+                setTimeout(() => setIsLoading(false), 3000)
+            })
+    }
 
 
     const handleFormSubmit =  (event) => {
 		event.preventDefault()
-
+        
         if(urlPhishing !== ""){
-
-            fetch(`${api.Url}/predict/`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({domain: urlPhishing})
-            }).then((response) => response.json())
-                .then((data)=>{
-                    setResult(data.data.result)
-                    if(data.data.result === 0){
-                        setMessage("Legitimate website")
-                    }else if(data.data.result === 1){
-                        setMessage("Phishing website")
-                    }
-                    setPageRank(data.data.page_rank)
-                    setDomainAge(data.data.domain_age)
-                    setDomainRegLen(data.data.domain_register_length)
-                    setWebTraffic(data.data.web_traffic)
-                    setWebsiteInfo(urlPhishing)
-                    setTimeout(() => setIsLoading(false), 3000)
-                })
-            setIsLoading(true)
-            setError(false)
+            if(urlPhishing.startsWith("https://") || urlPhishing.startsWith("http://")){
+                callApi(urlPhishing)
+                setIsLoading(true)
+                setError(false)
+                console.log(urlPhishing)
+            }else{
+                callApi("https://"+urlPhishing)
+                setUrlPhishing("https://"+urlPhishing)
+                setIsLoading(true)
+                setError(false)
+                console.log("https://"+urlPhishing)
+            }
         }else{
             setError(true)
 
