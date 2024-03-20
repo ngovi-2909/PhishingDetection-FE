@@ -173,7 +173,7 @@ return (
                                 </div>
                             ) : (<div></div>)
                             }
-                            {/*{error ? (<span className="text-danger">Please enter url!</span>):(<div></div>)}*/}
+
                         </div>
                     </Grid>
                     <Grid
@@ -250,29 +250,7 @@ return (
                         <img src={vid3} style={{width: '70%', borderRadius: '10px'}}/>
                     </Grid>
                 </Grid>
-                {/*<div style={{*/}
-                {/*    marginTop: '10%',*/}
-                {/*    marginRight: '50%',*/}
-                {/*    height: 1800,*/}
-                {/*}}>*/}
-                {/*    <h1>*/}
-                {/*        <Typewriter options={{*/}
-                {/*            delay: 50,*/}
-                {/*            strings: ["Don't be fooled by phishing scams!"],*/}
-                {/*            loop: true,*/}
-                {/*            autoStart: true,*/}
-                {/*        }}*/}
-                {/*        />*/}
-                {/*    </h1>*/}
-                {/*</div>*/}
-                {/*<div className="ParallaxVideo1">*/}
-                {/*    <video autoPlay muted loop>*/}
-                {/*        <source*/}
-                {/*            src={vid2}*/}
-                {/*            type="video/mp4"*/}
-                {/*        />*/}
-                {/*    </video>*/}
-                {/*</div>*/}
+
             </ParallaxLayer>
 
         </Parallax>
